@@ -12,7 +12,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			character: [],
+			planet: [],
+			favorites: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -20,9 +23,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+				fetch("https://swapi.dev/api/people/")
+					.then(response => response.json())
+					.then(data => setStore({ character: data.results }))
+					.catch(error => console.error(error));
+
+				fetch("https://swapi.dev/api/planets/")
+					.then(response => response.json())
+					.then(data => setStore({ planet: data.results }))
+					.catch(error => console.error(error));
 			},
 			changeColor: (index, color) => {
 				//get the store
@@ -37,6 +46,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			addFav: newItem => {
+				let myStore = getStore();
+				let newFav = myStore.favorites.concat(newItem);
+				setStore({ favorites: newFav });
+			},
+			delFav: deletedItem => {
+				var storeCopy = getStore();
+				var newFavorites = storeCopy.favorites.filter((value, index) => {
+					return value != deletedItem;
+				});
+				setStore({ favorites: newFavorites });
 			}
 		}
 	};

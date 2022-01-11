@@ -1,3 +1,26 @@
-/* 
-    General Styles
-*/
+.card{
+    width: 300px;
+    flex: 0 0 auto;
+   
+}
+.container-cards{
+    overflow-x: scroll;
+    display: flex;
+}
+.description, .singleTitle{
+    text-align: center;
+    margin: 30px;
+}
+.title, .text{
+    color: rgb(17, 17, 17);
+}
+
+.line{
+   
+    border-color: rgb(13, 14, 13);;
+}
+.singleImg{
+    width: 600px;
+    height: 500px;
+    margin-right: 20px;
+}
